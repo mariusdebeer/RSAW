@@ -1,1 +1,38 @@
+---
+# tasks file for vhost
+  - name: delete default nginx site
+    file:
+      path: /etc/nginx/sites-enabled/default
+      state: absent
 
+  - name: Restart nginx
+    shell:
+      cmd: systemctl restart nginx
+  - name: "create www directory"
+    file:
+      path: /var/www/{{ domain }}
+      state: directory
+      mode: '0775'
+      owner: "www-data"
+      group: "www-data"      
+
+  - name: copy nginx site.conf
+    template:
+      src: site.conf.j2
+      dest: /etc/nginx/sites-enabled/{{ domain }}
+      owner: root
+      group: root
+      mode: '0644'
+  - name: "sync website"
+    synchronize:
+      src: files/
+      dest: /var/www/{{ domain }}
+      archive: no
+      checksum: yes
+      recursive: yes   
+  - name: "Fix file permissions" 
+    ansible.builtin.file:
+      path: /var/www/{{ domain }}/index.html
+      owner: "www-data"
+      group:  "www-data"
+      mode: '0644' 
