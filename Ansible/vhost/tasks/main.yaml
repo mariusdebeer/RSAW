@@ -4,6 +4,10 @@
     file:
       path: /etc/nginx/sites-enabled/default
       state: absent
+  - name: delete default nginx site
+    file:
+      path: /etc/nginx/sites-available/default
+      state: absent      
 
   - name: Restart nginx
     shell:
@@ -35,4 +39,4 @@
       path: /var/www/{{ domain }}/index.html
       owner: "www-data"
       group:  "www-data"
-      mode: '0644' 
+      mode: '0644'    
