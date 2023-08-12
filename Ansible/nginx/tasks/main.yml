@@ -1,1 +1,14 @@
-
+---
+  - name: Update packages
+    ansible.builtin.apt:
+      name: '*'
+      state: latest
+  - name: Install nginx
+    ansible.builtin.apt: 
+      name: nginx
+      state: present
+  - name: Confirm Nginx is installed and running
+    shell:
+      cmd: systemctl status nginx
+    register: command_output  
+  - debug: var=command_output.stdout_lines   
