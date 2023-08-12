@@ -1,1 +1,6 @@
-
+all:
+  hosts:
+    ubuntu:
+      ansible_host: 190.124.46.115
+      ansible_port: 22
+      ansible_user: root
