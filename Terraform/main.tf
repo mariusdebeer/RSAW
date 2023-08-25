@@ -16,6 +16,6 @@ resource "aws_instance" "ec2_instance" {
     instance_type = "${var.instance_type}"
  #   key_name = "root_key01"
     tags = {
-        Name = "RSAWeb_MdeBeer0729050950"
+        Name = "Webserver1"
     }
 } 
